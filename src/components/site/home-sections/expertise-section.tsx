@@ -26,15 +26,20 @@ export function ExpertiseSection({ settings, items }: ExpertiseSectionProps) {
             Скоро здесь появится наша экспертиза.
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          // Мобильный: 2 колонки (компактно, иконки хорошо видны)
+          // Планшет (sm): 2 колонки
+          // Десктоп (lg): 3 колонки
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {items.map((item) => (
               <div
                 key={item.id}
-                className="group p-4 rounded-lg hover:bg-muted/30 transition-colors"
+                className="group p-3 sm:p-4 rounded-lg hover:bg-muted/30 transition-colors"
               >
-                <div className="flex items-start gap-4">
+                {/* На мобильном: иконка сверху, текст под ней (вертикальная компоновка).
+                    На десктопе (sm+): иконка слева, текст справа (горизонтальная). */}
+                <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
                   <div
-                    className="h-12 w-12 rounded-lg flex items-center justify-center shrink-0 overflow-hidden bg-transparent"
+                    className="h-12 w-12 rounded-lg flex items-center justify-center shrink-0 overflow-hidden bg-transparent mx-auto sm:mx-0"
                     style={{ backgroundColor: 'transparent' }}
                   >
                     <DynamicIcon
@@ -48,8 +53,8 @@ export function ExpertiseSection({ settings, items }: ExpertiseSectionProps) {
                       alt={item.title}
                     />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-semibold mb-1" style={{ color: settings.primaryColor }}>
+                  <div className="min-w-0 flex-1 text-center sm:text-left">
+                    <h3 className="font-semibold mb-1 text-sm sm:text-base" style={{ color: settings.primaryColor }}>
                       {item.title}
                     </h3>
                     {item.description && (
