@@ -52,14 +52,23 @@ export async function generateMetadata(): Promise<Metadata> {
     ? s.metaKeywords.split(',').map((t) => t.trim()).filter(Boolean)
     : undefined
 
+  // Cache-busting для favicon: при загрузке нового фавикона updatedAt меняется,
+  // и URL получает новый ?v=... → браузер не отдаёт старую закешированную версию.
+  // Раньше URL фавикона не менялся при обновлении, и браузер кешировал его
+  // "навсегда" (next/image ставит max-age=2592000, immutable).
+  const faviconVersion = new Date(s.updatedAt).getTime()
+  const fav = s.favicon ? `${s.favicon}?v=${faviconVersion}` : '/logo.svg'
+
   return {
     title,
     description,
     keywords,
     authors: s.metaAuthor ? [{ name: s.metaAuthor }] : undefined,
-    icons: s.favicon
-      ? { icon: s.favicon, shortcut: s.favicon, apple: s.favicon }
-      : { icon: "/logo.svg" },
+    icons: {
+      icon: fav,
+      shortcut: fav,
+      apple: fav,
+    },
     openGraph: {
       title: s.ogTitle,
       description: s.ogDescription,

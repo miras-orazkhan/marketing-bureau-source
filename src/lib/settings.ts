@@ -22,6 +22,8 @@ export type SiteSettingsPublic = {
   email: string | null
   phone: string | null
   address: string | null
+  // updatedAt — нужно для cache-busting favicon/logo (см. layout.tsx)
+  updatedAt: Date
   facebook: string | null
   twitter: string | null
   instagram: string | null
@@ -111,6 +113,7 @@ export async function getSiteSettings(): Promise<SiteSettingsPublic> {
     twitterDescription,
     twitterImage: row.twitterImage,
     favicon: row.favicon,
+    updatedAt: row.updatedAt,
     email: row.email,
     phone: row.phone,
     address: row.address,
@@ -202,6 +205,8 @@ export type SiteSettingsUpdate = Partial<{
   email: string | null
   phone: string | null
   address: string | null
+  // updatedAt — нужно для cache-busting favicon/logo (см. layout.tsx)
+  updatedAt: Date
   facebook: string | null
   twitter: string | null
   instagram: string | null

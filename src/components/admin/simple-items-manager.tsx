@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import {
-  Plus, Trash2, Loader2, Eye, EyeOff, Save, ArrowLeft,
+  Plus, Trash2, Loader2, Eye, EyeOff, Save, ArrowLeft, GripVertical,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -21,6 +21,7 @@ import { DynamicIcon } from '@/components/site/dynamic-icon'
 import { IconPicker } from './icon-picker'
 import { Breadcrumbs } from './breadcrumbs'
 import { RichTextEditor } from '@/components/rich-text-editor'
+import { SortableList } from './sortable-list'
 import { apiGetSettings, apiUpdateSettings } from '@/lib/api-client'
 import { toast } from 'sonner'
 
@@ -122,6 +123,32 @@ export function SimpleItemsManager({
     }
   }
 
+  /**
+   * Drag-and-drop: меняет порядок элементов локально и сохраняет на сервере.
+   * Оптимистичный апдейт — UI обновляется мгновенно, серверные запросы идут в фоне.
+   */
+  const handleReorder = async (newItems: Item[]) => {
+    // Оптимистично обновляем UI
+    setItems(newItems)
+    // Сохраняем новый порядок на сервере
+    for (let i = 0; i < newItems.length; i++) {
+      const item = newItems[i]
+      if (item.sortOrder !== i) {
+        // Обновляем только если порядок изменился (не делаем лишних запросов)
+        try {
+          await onUpdate(item.id, { sortOrder: i })
+          // Обновляем локальный sortOrder
+          item.sortOrder = i
+        } catch (e: any) {
+          toast.error(e?.message || 'Ошибка при изменении порядка')
+          // Откатываем — перезагружаем список
+          load()
+          break
+        }
+      }
+    }
+  }
+
   // ─── Режим редактирования ─────────────────────────────────
   if (editing) {
     const isNew = !editing.id
@@ -217,59 +244,68 @@ export function SimpleItemsManager({
           </Button>
         </div>
       ) : (
-        <div className="space-y-2">
-          {items.map((item) => (
-            <Card key={item.id} className="cursor-pointer hover:shadow-md transition-shadow">
-              <CardContent className="p-3 flex items-center gap-3">
-                <DynamicIcon
-                  name={item.icon}
-                  className="h-7 w-7 text-primary shrink-0"
-                />
-                <button
-                  type="button"
-                  onClick={() => setEditing(item)}
-                  className="flex-1 text-left min-w-0"
-                >
-                  <div className="font-medium truncate">{item.title}</div>
-                  {item.description && (
-                    <div
-                      className="text-xs text-muted-foreground line-clamp-1 prose prose-sm [&_*]:inline [&_p]:m-0"
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                    />
-                  )}
-                </button>
-                <div className="flex items-center gap-2 shrink-0">
-                  <div className="flex items-center gap-1">
-                    <Switch
-                      checked={item.published}
-                      onCheckedChange={async (v) => {
-                        const res = await onUpdate(item.id, { published: v })
-                        if (res.ok) {
-                          setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, published: v } : i)))
-                        } else {
-                          toast.error(res.error || 'Ошибка')
-                        }
-                      }}
-                    />
-                    {item.published ? (
-                      <Eye className="h-3.5 w-3.5 text-emerald-600" />
-                    ) : (
-                      <EyeOff className="h-3.5 w-3.5 text-amber-600" />
-                    )}
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-destructive h-8 w-8 p-0"
-                    onClick={() => setConfirmDelete(item.id)}
-                    title="Удалить"
+        <div>
+          <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1">
+            <GripVertical className="h-3.5 w-3.5" />
+            Перетащите элементы за ручку слева, чтобы изменить порядок отображения на сайте
+          </p>
+          <SortableList
+            items={items}
+            onReorder={handleReorder}
+            renderItem={(item) => (
+              <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                <CardContent className="p-3 flex items-center gap-3">
+                  <DynamicIcon
+                    name={item.icon}
+                    image={item.iconImage}
+                    className="h-7 w-7 text-primary shrink-0"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setEditing(item)}
+                    className="flex-1 text-left min-w-0"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <div className="font-medium truncate">{item.title}</div>
+                    {item.description && (
+                      <div
+                        className="text-xs text-muted-foreground line-clamp-1 prose prose-sm [&_*]:inline [&_p]:m-0"
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                      />
+                    )}
+                  </button>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex items-center gap-1">
+                      <Switch
+                        checked={item.published}
+                        onCheckedChange={async (v) => {
+                          const res = await onUpdate(item.id, { published: v })
+                          if (res.ok) {
+                            setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, published: v } : i)))
+                          } else {
+                            toast.error(res.error || 'Ошибка')
+                          }
+                        }}
+                      />
+                      {item.published ? (
+                        <Eye className="h-3.5 w-3.5 text-emerald-600" />
+                      ) : (
+                        <EyeOff className="h-3.5 w-3.5 text-amber-600" />
+                      )}
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-destructive h-8 w-8 p-0"
+                      onClick={() => setConfirmDelete(item.id)}
+                      title="Удалить"
+                    >
+                      <Trash2 className="h-4 w-4" />
                   </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          />
         </div>
       )}
 
