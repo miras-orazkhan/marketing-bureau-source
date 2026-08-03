@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Facebook, Twitter, Instagram, Youtube, Send, Mail, Phone, MapPin } from 'lucide-react'
 import type { SiteSettingsPublic } from '@/lib/settings'
 import type { SocialLinkPublic } from '@/lib/company-content'
@@ -7,9 +8,7 @@ import { DynamicIcon } from './dynamic-icon'
 
 type FooterProps = {
   settings: SiteSettingsPublic
-  /** Соцсети из БД (управляются через админку). Если пусто — fallback на старые поля settings. */
   socialLinks?: SocialLinkPublic[]
-  onNavigate: (target: 'home' | 'services' | 'cases' | 'about' | 'blog' | 'news' | 'faq' | 'privacy') => void
   onAdminClick?: () => void
 }
 
@@ -22,7 +21,7 @@ type SocialItem = {
   fallbackIcon?: React.ReactNode
 }
 
-export function Footer({ settings, socialLinks, onNavigate, onAdminClick }: FooterProps) {
+export function Footer({ settings, socialLinks, onAdminClick }: FooterProps) {
   const year = new Date().getFullYear()
 
   // ─── Готовим список соцсетей к рендеру ───
@@ -106,21 +105,22 @@ export function Footer({ settings, socialLinks, onNavigate, onAdminClick }: Foot
             <h4 className="text-sm font-semibold uppercase tracking-wide">Навигация</h4>
             <ul className="space-y-2 text-sm">
               {[
-                { label: 'Главная', target: 'home' as const },
-                { label: 'Услуги', target: 'services' as const },
-                { label: 'Кейсы', target: 'cases' as const },
-                { label: 'FAQ', target: 'faq' as const },
-                { label: 'О нас', target: 'about' as const },
-                { label: 'Блог', target: 'blog' as const },
+                { label: 'Главная', href: '/' },
+                { label: 'Услуги', href: '/services' },
+                { label: 'Кейсы', href: '/cases' },
+                { label: 'FAQ', href: '/faq' },
+                { label: 'О нас', href: '/about' },
+                { label: 'Блог', href: '/blog' },
               ].map((item) => (
-                <li key={item.target}>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate(item.target)}
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener"
                     className="text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -160,13 +160,14 @@ export function Footer({ settings, socialLinks, onNavigate, onAdminClick }: Foot
           {/* Слева — copyright + Политика под ним */}
           <div className="text-left space-y-1">
             <p>{settings.footerText || `© ${year} ${settings.siteName}. Все права защищены.`}</p>
-            <button
-              type="button"
-              onClick={() => onNavigate('privacy')}
+            <Link
+              href="/privacy"
+              target="_blank"
+              rel="noopener"
               className="underline hover:text-foreground transition-colors"
             >
               Политика конфиденциальности
-            </button>
+            </Link>
           </div>
           {/* Справа — Войти, выровнен с верхней строкой */}
           {onAdminClick && (

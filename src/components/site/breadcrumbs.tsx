@@ -24,7 +24,7 @@ type BreadcrumbsProps = {
  * Использование:
  *   <Breadcrumbs items={[
  *     { label: 'Главная', href: '/' },
- *     { label: 'Кейсы', href: '/?section=cases' },
+ *     { label: 'Кейсы', href: '/cases' },
  *     { label: 'Tehno Altyn' },  // текущая — без href
  *   ]} />
  *

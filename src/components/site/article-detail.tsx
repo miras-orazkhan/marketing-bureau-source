@@ -55,7 +55,7 @@ export function ArticleDetail({ article, settings, related, onBack, onOpen }: Ar
         <SiteBreadcrumbs
           items={[
             { label: 'Главная', href: '/' },
-            { label: 'Блог', href: '/?section=blog' },
+            { label: 'Блог', href: '/blog' },
             { label: article.title },
           ]}
           accentColor={settings.accentColor}

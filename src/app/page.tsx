@@ -24,7 +24,7 @@ import { isAdmin } from '@/lib/auth'
 import { getPageSchemas, buildArticleSchema } from '@/lib/schema'
 
 export const dynamic = 'force-dynamic'
-export const revalidate = 0
+export const revalidate = 60
 
 type SearchParams = Promise<{
   view?: string
@@ -168,12 +168,19 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
   const params = await searchParams
 
   // Редирект старых URL вида /?case=<slug> на новые /cases/<slug>
-  // (для SEO и обратной совместимости со старыми ссылками).
-  // searchParams приходят уже декодированными Next.js, но на всякий случай
-  // кодируем slug для безопасного использования в path.
   if (params.case) {
     const safeSlug = encodeURIComponent(params.case)
     redirect(`/cases/${safeSlug}`)
+  }
+
+  // Редирект старых URL вида /?section=about на новые /about
+  // (каждая секция теперь имеет собственный роут — это лучше для SEO,
+  // кэширования и скорости загрузки).
+  if (params.section) {
+    const validSections = ['services', 'cases', 'about', 'blog', 'faq', 'privacy', 'news']
+    if (validSections.includes(params.section)) {
+      redirect(`/${params.section}`)
+    }
   }
 
   const pageSlug = resolvePageSlug(params)

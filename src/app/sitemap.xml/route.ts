@@ -22,14 +22,14 @@ export async function GET() {
   // Главная
   urls.push({ loc: `${baseUrl}/`, lastmod: now, changefreq: 'weekly', priority: '1.0' })
 
-  // Статические страницы (используют ?section=, который реально работает в роутинге)
+  // Статические страницы — чистые URL
   const staticPages = [
-    { path: '/?section=services', priority: '0.9', changefreq: 'monthly' },
-    { path: '/?section=cases', priority: '0.8', changefreq: 'weekly' },
-    { path: '/?section=about', priority: '0.7', changefreq: 'monthly' },
-    { path: '/?section=faq', priority: '0.7', changefreq: 'monthly' },
-    { path: '/?section=blog', priority: '0.8', changefreq: 'weekly' },
-    { path: '/?section=privacy', priority: '0.3', changefreq: 'yearly' },
+    { path: '/services', priority: '0.9', changefreq: 'monthly' },
+    { path: '/cases', priority: '0.8', changefreq: 'weekly' },
+    { path: '/about', priority: '0.7', changefreq: 'monthly' },
+    { path: '/faq', priority: '0.7', changefreq: 'monthly' },
+    { path: '/blog', priority: '0.8', changefreq: 'weekly' },
+    { path: '/privacy', priority: '0.3', changefreq: 'yearly' },
   ]
   staticPages.forEach((p) => {
     urls.push({ loc: `${baseUrl}${p.path}`, lastmod: now, changefreq: p.changefreq, priority: p.priority })

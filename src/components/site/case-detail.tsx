@@ -60,7 +60,7 @@ export function CaseDetail({
         <SiteBreadcrumbs
           items={[
             { label: 'Главная', href: '/' },
-            { label: 'Кейсы', href: '/?section=cases' },
+            { label: 'Кейсы', href: '/cases' },
             { label: caseItem.title },
           ]}
           accentColor={settings.accentColor}

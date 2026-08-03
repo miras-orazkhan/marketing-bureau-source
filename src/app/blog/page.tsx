@@ -8,7 +8,7 @@ export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await loadPageData()
-  const meta = await getEffectivePageMeta('cases', {
+  const meta = await getEffectivePageMeta('blog', {
     siteName: settings.siteName,
     siteUrl: settings.siteUrl,
     ogImage: settings.ogImage,
@@ -19,14 +19,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: meta.title,
     description: meta.description,
-    alternates: { canonical: `${baseUrl}/cases` },
-    openGraph: { title: meta.ogTitle, description: meta.ogDescription, url: `${baseUrl}/cases`, siteName: settings.siteName },
+    alternates: { canonical: `${baseUrl}/blog` },
+    openGraph: { title: meta.ogTitle, description: meta.ogDescription, url: `${baseUrl}/blog`, siteName: settings.siteName },
   }
 }
 
-export default async function CasesListPage() {
+export default async function BlogPage() {
   const data = await loadPageData()
-  const pageMeta = await getEffectivePageMeta('cases', {
+  const pageMeta = await getEffectivePageMeta('blog', {
     siteName: data.settings.siteName,
     siteUrl: data.settings.siteUrl,
     ogImage: data.settings.ogImage,
@@ -39,7 +39,7 @@ export default async function CasesListPage() {
       <SiteApp
         {...data}
         pageMeta={pageMeta}
-        initialView="cases"
+        initialView="blog"
         articleSlug={null}
         resetToken={null}
         articleData={null}

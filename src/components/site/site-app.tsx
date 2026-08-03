@@ -239,7 +239,6 @@ export function SiteApp({
       <Header
         settings={settings}
         navItems={headerNavTargets}
-        onNavigate={(t) => navigateTo(t as any)}
       />
 
       <main id="main-content" className="flex-1">
@@ -407,7 +406,6 @@ export function SiteApp({
       <Footer
         settings={settings}
         socialLinks={socialLinks}
-        onNavigate={(t) => navigateTo(t as any)}
         onAdminClick={openAdmin}
       />
     </div>

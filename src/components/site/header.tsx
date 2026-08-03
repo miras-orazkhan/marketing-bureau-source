@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -17,21 +18,27 @@ const NAV_LABELS: Record<NavTarget, string> = {
   faq: 'FAQ',
 }
 
+// Чистые URL для каждого раздела
+const NAV_HREFS: Record<NavTarget, string> = {
+  home: '/',
+  services: '/services',
+  cases: '/cases',
+  about: '/about',
+  blog: '/blog',
+  faq: '/faq',
+}
+
 type HeaderProps = {
   settings: SiteSettingsPublic
   navItems: NavTarget[]
-  onNavigate: (target: NavTarget) => void
 }
 
-export function Header({ settings, navItems, onNavigate }: HeaderProps) {
+export function Header({ settings, navItems }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const LogoEl = useMemo(() => {
     if (settings.logoUrl) {
       return (
-        // width/height нужны для предотвращения CLS: браузер резервирует место
-        // под картинку ДО её загрузки. h-10 в CSS = 40px, ширина вычисляется
-        // автоматически через aspect-ratio (по intrinsic размерам PNG).
         <img
           src={settings.logoUrl}
           alt={settings.siteName}
@@ -57,28 +64,35 @@ export function Header({ settings, navItems, onNavigate }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <button
-          type="button"
-          onClick={() => {
-            onNavigate('home')
-            setMobileOpen(false)
-          }}
+        {/* Логотип — ссылка на главную, открывается в новой вкладке */}
+        <Link
+          href="/"
+          target="_blank"
+          rel="noopener"
           className="flex items-center gap-2 shrink-0 hover:opacity-80 transition-opacity"
           aria-label={settings.siteName}
         >
           {LogoEl}
-        </button>
+        </Link>
 
+        {/* Десктоп-навигация — чистые URL, каждая в новой вкладке */}
         <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <Button
               key={item}
               variant="ghost"
               size="default"
-              onClick={() => onNavigate(item)}
               className="text-sm min-h-[44px]"
+              asChild
             >
-              {NAV_LABELS[item]}
+              <Link
+                href={NAV_HREFS[item]}
+                target="_blank"
+                rel="noopener"
+                prefetch
+              >
+                {NAV_LABELS[item]}
+              </Link>
             </Button>
           ))}
         </nav>
@@ -94,6 +108,7 @@ export function Header({ settings, navItems, onNavigate }: HeaderProps) {
         </Button>
       </div>
 
+      {/* Мобильное меню */}
       <div
         className={cn(
           'md:hidden border-t bg-background overflow-hidden transition-all',
@@ -107,12 +122,16 @@ export function Header({ settings, navItems, onNavigate }: HeaderProps) {
               variant="ghost"
               size="default"
               className="justify-start min-h-[44px]"
-              onClick={() => {
-                onNavigate(item)
-                setMobileOpen(false)
-              }}
+              asChild
             >
-              {NAV_LABELS[item]}
+              <Link
+                href={NAV_HREFS[item]}
+                target="_blank"
+                rel="noopener"
+                onClick={() => setMobileOpen(false)}
+              >
+                {NAV_LABELS[item]}
+              </Link>
             </Button>
           ))}
         </nav>
