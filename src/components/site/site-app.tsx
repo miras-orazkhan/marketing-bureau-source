@@ -27,11 +27,14 @@ import { CasesSection } from './home-sections/cases-section'
 import { FaqSection } from './home-sections/faq-section'
 import { CtaSection } from './home-sections/cta-section'
 
-import { ArticleListPage } from './article-list-page'
-import { ArticleDetail } from './article-detail'
-import { ServicesPage } from './services-page'
-import { CasesPage } from './cases-page'
-import { CaseDetail } from './case-detail'
+// Все остальные страницы — LAZY LOAD.
+// На главной они не нужны, но их прямой импорт тащит сотни KB JS
+// (Radix Accordion для FAQ, и т.д.), что блокирует main thread на мобильном.
+const ArticleListPage = dynamic(() => import('./article-list-page').then((m) => m.ArticleListPage), { ssr: true })
+const ArticleDetail = dynamic(() => import('./article-detail').then((m) => m.ArticleDetail), { ssr: true })
+const ServicesPage = dynamic(() => import('./services-page').then((m) => m.ServicesPage), { ssr: true })
+const CasesPage = dynamic(() => import('./cases-page').then((m) => m.CasesPage), { ssr: true })
+const CaseDetail = dynamic(() => import('./case-detail').then((m) => m.CaseDetail), { ssr: true })
 
 // LAZY-LOAD админ-панели: на главной она не нужна, но её прямой импорт
 // тащит в initial bundle Tiptap, framer-motion, recharts, MDX editor, DnD-kit
@@ -46,8 +49,8 @@ const AdminLogin = dynamic(
   () => import('@/components/admin/admin-login').then((m) => m.AdminLogin),
   { ssr: false, loading: () => <div className="min-h-screen flex items-center justify-center text-muted-foreground">Загрузка…</div> }
 )
-import { FaqPage } from './faq-page'
-import { PrivacyPage } from './privacy-page'
+const FaqPage = dynamic(() => import('./faq-page').then((m) => m.FaqPage), { ssr: true })
+const PrivacyPage = dynamic(() => import('./privacy-page').then((m) => m.PrivacyPage), { ssr: true })
 
 type View =
   | 'home'
