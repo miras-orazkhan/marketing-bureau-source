@@ -1,5 +1,3 @@
-'use client'
-
 type SectionHeaderProps = {
   label?: string
   title: string

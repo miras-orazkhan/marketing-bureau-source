@@ -1,5 +1,3 @@
-'use client'
-
 import type { ExpertisePublic } from '@/lib/company-content'
 import type { SiteSettingsPublic } from '@/lib/settings'
 import { DynamicIcon } from '@/components/site/dynamic-icon'

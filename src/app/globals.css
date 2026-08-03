@@ -299,6 +299,9 @@ section[id],
 .article-content p {
   margin: 0 0 1em;
   line-height: 1.7;
+  /* Сохраняем переносы строк из текста (если админ ввёл текст с \n
+     вместо <ul><li>, строки всё равно будут на отдельных строках) */
+  white-space: pre-line;
 }
 .article-content ul,
 .article-content ol {

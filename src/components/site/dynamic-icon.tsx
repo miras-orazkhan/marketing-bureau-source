@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Megaphone, TrendingUp, Target, PenTool, Search, Share2, Mail,
   BarChart3, Users, Lightbulb, Award, Clock, CheckCircle2, Rocket,

@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ArrowRight, TrendingUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -8,7 +6,6 @@ import type { CasePublic } from '@/lib/company-content'
 import type { SiteSettingsPublic } from '@/lib/settings'
 import { CtaSection } from './home-sections/cta-section'
 import { Breadcrumbs as SiteBreadcrumbs } from './breadcrumbs'
-import { useNavigationLoading } from '@/hooks/use-navigation-loading'
 
 type CasesPageProps = {
   settings: SiteSettingsPublic
@@ -18,8 +15,7 @@ type CasesPageProps = {
   onOpenCase: (slug: string) => void
 }
 
-export function CasesPage({ settings, items, onContact, onOpenCase }: CasesPageProps) {
-  const isLoading = useNavigationLoading()
+export function CasesPage({ settings, items, onContact }: CasesPageProps) {
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
       {/* Хлебные крошки */}
@@ -56,8 +52,7 @@ export function CasesPage({ settings, items, onContact, onOpenCase }: CasesPageP
               key={item.id}
               href={`/cases/${encodeURIComponent(item.slug)}`}
               prefetch
-              aria-disabled={isLoading}
-              className={`group bg-card border rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col ${isLoading ? 'pointer-events-none opacity-60' : 'cursor-pointer'}`}
+              className="group bg-card border rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col cursor-pointer"
             >
               {item.coverImage ? (
                 <div className="aspect-[16/10] overflow-hidden">

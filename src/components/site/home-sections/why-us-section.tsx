@@ -1,5 +1,3 @@
-'use client'
-
 import type { WhyUsPublic } from '@/lib/company-content'
 import type { SiteSettingsPublic } from '@/lib/settings'
 import { DynamicIcon } from '@/components/site/dynamic-icon'

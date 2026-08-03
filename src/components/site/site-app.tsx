@@ -339,20 +339,20 @@ export function SiteApp({
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {settings.email && (
-                <div className="border rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground">Email</p>
+                <div className="border rounded-lg p-4 bg-white shadow-sm">
+                  <p className="text-sm text-muted-foreground mb-1">Email</p>
                   <p className="font-medium">{settings.email}</p>
                 </div>
               )}
               {settings.phone && (
-                <div className="border rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground">Телефон</p>
+                <div className="border rounded-lg p-4 bg-white shadow-sm">
+                  <p className="text-sm text-muted-foreground mb-1">Телефон</p>
                   <p className="font-medium">{settings.phone}</p>
                 </div>
               )}
               {settings.address && (
-                <div className="border rounded-lg p-4 sm:col-span-2">
-                  <p className="text-sm text-muted-foreground">Адрес</p>
+                <div className="border rounded-lg p-4 bg-white shadow-sm sm:col-span-2">
+                  <p className="text-sm text-muted-foreground mb-1">Адрес</p>
                   <p className="font-medium">{settings.address}</p>
                 </div>
               )}
