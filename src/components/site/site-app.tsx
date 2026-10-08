@@ -43,11 +43,11 @@ const CaseDetail = dynamic(() => import('./case-detail').then((m) => m.CaseDetai
 // (/?view=admin или /?view=reset).
 const AdminPanel = dynamic(
   () => import('@/components/admin/admin-panel').then((m) => m.AdminPanel),
-  { ssr: false, loading: () => <div className="min-h-screen flex items-center justify-center text-muted-foreground">Загрузка админ-панели…</div> }
+  { ssr: true, loading: () => <div className="min-h-screen flex items-center justify-center text-muted-foreground">Загрузка админ-панели…</div> }
 )
 const AdminLogin = dynamic(
   () => import('@/components/admin/admin-login').then((m) => m.AdminLogin),
-  { ssr: false, loading: () => <div className="min-h-screen flex items-center justify-center text-muted-foreground">Загрузка…</div> }
+  { ssr: true, loading: () => <div className="min-h-screen flex items-center justify-center text-muted-foreground">Загрузка…</div> }
 )
 const FaqPage = dynamic(() => import('./faq-page').then((m) => m.FaqPage), { ssr: true })
 const PrivacyPage = dynamic(() => import('./privacy-page').then((m) => m.PrivacyPage), { ssr: true })

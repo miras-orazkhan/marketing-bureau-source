@@ -1,13 +1,24 @@
+import '@/app/globals.css'
+import { Toaster } from '@/components/ui/toaster'
+import { Toaster as SonnerToaster } from '@/components/ui/sonner'
+
 /**
- * Минимальный root layout для Next.js App Router.
- * Все страницы рендерятся через route.ts (Eta-шаблоны),
- * этот layout нужен только чтобы Next.js не падал при сборке.
- * Он НЕ добавляет HTML — это делает Eta-шаблон layouts/base.eta.
+ * Root layout — нужен только для React page.tsx файлов (админка).
+ * HTMX route.ts файлы возвращают собственный HTML через Eta-шаблоны
+ * и НЕ проходят через этот layout.
  */
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <html lang="ru" suppressHydrationWarning>
+      <body className="antialiased bg-background text-foreground min-h-screen">
+        {children}
+        <Toaster />
+        <SonnerToaster richColors position="top-right" />
+      </body>
+    </html>
+  )
 }
