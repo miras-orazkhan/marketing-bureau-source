@@ -23,6 +23,7 @@ type PageContext = {
   socialLinks: Awaited<ReturnType<typeof getPublishedSocialLinks>>
   header: string
   footer: string
+  iconSvg: typeof import('./template-engine').iconSvg
 }
 
 /**
