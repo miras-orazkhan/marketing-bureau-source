@@ -10,7 +10,7 @@ import {
   getPublishedSocialLinks,
 } from '@/lib/company-content'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
   const [settings, expertise, services, whyUs, cases, faq, socialLinks] = await Promise.all([
