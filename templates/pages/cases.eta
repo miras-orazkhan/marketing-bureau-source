@@ -1,0 +1,66 @@
+<% /* Страница Кейсы (список) */ %>
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+  <nav class="text-sm mb-6 text-gray-400">
+    <a href="/" class="hover:text-gray-600">Главная</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-900 font-medium">Кейсы</span>
+  </nav>
+
+  <header class="text-center max-w-2xl mx-auto mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: <%= it.settings?.primaryColor %>">
+      <%= it.settings?.casesSectionTitle || 'Кейсы' %>
+    </h1>
+    <% if (it.settings?.casesSectionText) { %>
+    <div class="text-gray-500 leading-relaxed prose prose-sm max-w-none">
+      <%~ it.settings.casesSectionText %>
+    </div>
+    <% } %>
+  </header>
+
+  <% if (it.cases && it.cases.length > 0) { %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <% it.cases.forEach(function(item) { %>
+    <a href="/cases/<%= encodeURIComponent(item.slug) %>" class="group bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+      <% if (item.coverImage) { %>
+      <div class="aspect-[16/10] overflow-hidden">
+        <img src="<%= item.coverImage %>" alt="<%= item.title %>"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+             loading="lazy" decoding="async">
+      </div>
+      <% } else { %>
+      <div class="aspect-[16/10] flex items-center justify-center text-white"
+           style="background: linear-gradient(135deg, <%= it.settings?.primaryColor %>, <%= it.settings?.accentColor %>)">
+        <span class="text-5xl font-bold opacity-50"><%= (item.client || item.title).charAt(0).toUpperCase() %></span>
+      </div>
+      <% } %>
+      <div class="p-5 flex-1 flex flex-col">
+        <% if (item.client) { %>
+        <p class="text-xs text-gray-400 mb-1 uppercase tracking-wide"><%= item.client %></p>
+        <% } %>
+        <h2 class="font-semibold text-lg mb-2" style="color: <%= it.settings?.primaryColor %>">
+          <%= item.title %>
+        </h2>
+        <% if (item.excerpt) { %>
+        <p class="text-sm text-gray-500 line-clamp-3 mb-3 flex-1"><%= item.excerpt %></p>
+        <% } %>
+        <div class="flex items-center justify-between gap-2 mt-auto">
+          <% if (item.results) { %>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
+               style="background-color: <%= it.settings?.accentColor %>1a; color: <%= it.settings?.accentColor %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            <%= item.results %>
+          </div>
+          <% } else { %><span></span><% } %>
+          <span class="inline-flex items-center text-xs font-medium opacity-70 group-hover:opacity-100 transition-opacity" style="color: <%= it.settings?.accentColor %>">
+            Подробнее
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+    <% }) %>
+  </div>
+  <% } else { %>
+  <p class="text-center text-gray-400 py-16 border border-dashed rounded-lg">Кейсы скоро появятся.</p>
+  <% } %>
+</div>

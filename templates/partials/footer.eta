@@ -1,0 +1,67 @@
+<% /* Footer — подвал сайта */ %>
+<footer class="border-t bg-gray-50 mt-auto">
+  <div class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+      <% /* О сайте * */ %>
+      <div class="md:col-span-2 space-y-3">
+        <h3 class="text-lg font-semibold" style="color: <%= it.settings?.primaryColor || '#0f172a' %>">
+          <%= it.settings?.siteName || 'Marketing Bureau' %>
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-md">
+          <%= it.settings?.aboutText || it.settings?.metaDescription || '' %>
+        </p>
+
+        <% /* Соцсети * */ %>
+        <% if (it.socialLinks && it.socialLinks.length > 0) { %>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <% it.socialLinks.forEach(function(s) { %>
+            <a href="<%= s.url %>" target="_blank" rel="noopener noreferrer"
+               class="h-9 w-9 rounded-full border flex items-center justify-center hover:bg-gray-900 hover:text-white transition-colors"
+               aria-label="<%= s.name %>" title="<%= s.name %>">
+              <%= s.name.charAt(0) %>
+            </a>
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+
+      <% /* Навигация * */ %>
+      <div class="space-y-3">
+        <h4 class="text-sm font-semibold uppercase tracking-wide">Навигация</h4>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <li><a href="/" class="hover:text-gray-900 transition-colors hover:underline">Главная</a></li>
+          <li><a href="/services" class="hover:text-gray-900 transition-colors hover:underline">Услуги</a></li>
+          <li><a href="/cases" class="hover:text-gray-900 transition-colors hover:underline">Кейсы</a></li>
+          <li><a href="/faq" class="hover:text-gray-900 transition-colors hover:underline">FAQ</a></li>
+          <li><a href="/about" class="hover:text-gray-900 transition-colors hover:underline">О нас</a></li>
+          <li><a href="/blog" class="hover:text-gray-900 transition-colors hover:underline">Блог</a></li>
+        </ul>
+      </div>
+
+      <% /* Контакты * */ %>
+      <div class="space-y-3">
+        <h4 class="text-sm font-semibold uppercase tracking-wide">Контакты</h4>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <% if (it.settings?.email) { %>
+          <li><a href="mailto:<%= it.settings.email %>" class="hover:text-gray-900 hover:underline"><%= it.settings.email %></a></li>
+          <% } %>
+          <% if (it.settings?.phone) { %>
+          <li><a href="tel:<%= it.settings.phone %>" class="hover:text-gray-900 hover:underline"><%= it.settings.phone %></a></li>
+          <% } %>
+          <% if (it.settings?.address) { %>
+          <li><%= it.settings.address %></li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-6 border-t flex items-start justify-between gap-4 text-xs text-gray-400">
+      <div class="text-left space-y-1">
+        <p><%= it.settings?.footerText || ('© ' + new Date().getFullYear() + ' ' + (it.settings?.siteName || 'Marketing Bureau') + '. Все права защищены.') %></p>
+        <a href="/privacy" class="underline hover:text-gray-600 transition-colors">Политика конфиденциальности</a>
+      </div>
+      <a href="/?view=admin" class="text-gray-300 hover:text-gray-500 transition-colors text-[10px]">Войти</a>
+    </div>
+  </div>
+</footer>

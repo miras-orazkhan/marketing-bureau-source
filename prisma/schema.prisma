@@ -73,6 +73,8 @@ model SiteSettings {
   siteUrl         String?  @default("https://marketingbureau.kz")
   // Footer / About
   footerText      String?
+  aboutTitle      String?
+  aboutDescription String?
   aboutText       String?
   aboutContent    String?  // HTML — rich text для страницы «О нас»
 

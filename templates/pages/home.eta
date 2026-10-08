@@ -1,0 +1,336 @@
+<% /* Главная страница — HTMX + Eta шаблон */ %>
+
+<% /* HERO * */ %>
+<section id="hero" class="relative overflow-hidden isolate">
+  <div class="absolute inset-0 -z-10">
+    <% if (it.settings?.heroBackground) { %>
+    <img src="<%= it.settings.heroBackground %>" alt=""
+         class="absolute inset-0 w-full h-full object-cover"
+         loading="eager" decoding="async" fetchPriority="high">
+    <div class="absolute inset-0" style="background: rgba(0,0,0,0.5)"></div>
+    <% } else { %>
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, <%= it.settings?.primaryColor || '#0f172a' %> 0%, <%= it.settings?.accentColor || '#10b981' %> 100%)"></div>
+    <% } %>
+  </div>
+
+  <div class="container mx-auto px-4 py-24 md:py-36 text-white">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-5 leading-tight">
+        <%= it.settings?.heroTitle || 'Растим ваш бизнес через маркетинг' %>
+      </h1>
+      <p class="text-base md:text-xl text-white/85 mb-8 leading-relaxed max-w-2xl">
+        <%= it.settings?.heroSubtitle || 'Стратегия, брендинг, performance, SMM и SEO.' %>
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <% if (it.settings?.heroCtaText) { %>
+        <a href="#cta" class="inline-flex items-center gap-2 px-6 h-10 rounded-md bg-white text-gray-900 hover:bg-white/90 text-sm font-medium transition-colors">
+          <%= it.settings.heroCtaText %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <% } %>
+        <% if (it.settings?.heroWhatsappLink && it.settings?.heroWhatsappText) { %>
+        <a href="<%= it.settings.heroWhatsappLink %>" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-6 h-10 rounded-md text-sm font-medium transition-colors border-0 hover:opacity-90"
+           style="background-color: <%= it.settings?.accentColor || '#10b981' %>; color: #fff">
+          <%= it.settings.heroWhatsappText %>
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% /* ЭКСПЕРТИЗА * */ %>
+<% if (it.expertise && it.expertise.length > 0) { %>
+<section id="expertise" class="py-16 md:py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide"
+           style="background-color: <%= it.settings?.accentColor %>1a; color: <%= it.settings?.accentColor %>">
+        Что мы умеем
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-3" style="color: <%= it.settings?.primaryColor %>">
+        <%= it.settings?.expertiseSectionTitle || 'Наша экспертиза' %>
+      </h2>
+      <% if (it.settings?.expertiseSectionText) { %>
+      <div class="text-gray-500 leading-relaxed mt-3 text-base md:text-lg prose prose-sm max-w-none">
+        <%~ it.settings.expertiseSectionText %>
+      </div>
+      <% } %>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <% it.expertise.forEach(function(item) { %>
+      <div class="group p-3 sm:p-4 rounded-lg hover:bg-gray-50 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+          <div class="h-12 w-12 rounded-lg flex items-center justify-center shrink-0 overflow-hidden mx-auto sm:mx-0"
+               style="background-color: transparent">
+            <% if (item.iconImage) { %>
+              <img src="<%= item.iconImage %>" alt="<%= item.title %>" class="h-12 w-12 object-contain" loading="lazy" decoding="async">
+            <% } else { %>
+              <span class="text-2xl" style="color: <%= it.settings?.accentColor %>">⬡</span>
+            <% } %>
+          </div>
+          <div class="min-w-0 flex-1 text-center sm:text-left">
+            <h3 class="font-semibold mb-1 text-sm sm:text-base" style="color: <%= it.settings?.primaryColor %>">
+              <%= item.title %>
+            </h3>
+            <% if (item.description) { %>
+            <div class="text-sm text-gray-500 prose prose-sm max-w-none">
+              <%~ item.description %>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% /* УСЛУГИ * */ %>
+<% if (it.services && it.services.length > 0) { %>
+<section id="services" class="py-16 md:py-24 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide"
+           style="background-color: <%= it.settings?.accentColor %>1a; color: <%= it.settings?.accentColor %>">
+        Услуги
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-3" style="color: <%= it.settings?.primaryColor %>">
+        <%= it.settings?.servicesSectionTitle || 'Услуги' %>
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% it.services.slice(0, 6).forEach(function(item) { %>
+      <div class="bg-white border rounded-xl p-6 hover:shadow-lg transition-shadow">
+        <div class="h-12 w-12 rounded-lg flex items-center justify-center mb-4"
+             style="background-color: <%= it.settings?.accentColor %>1a">
+          <% if (item.iconImage) { %>
+            <img src="<%= item.iconImage %>" alt="<%= item.title %>" class="h-12 w-12 object-contain rounded-lg" loading="lazy" decoding="async">
+          <% } else { %>
+            <span class="text-2xl" style="color: <%= it.settings?.accentColor %>">⬡</span>
+          <% } %>
+        </div>
+        <h3 class="font-semibold text-lg mb-2" style="color: <%= it.settings?.primaryColor %>">
+          <%= item.title %>
+        </h3>
+        <% if (item.excerpt) { %>
+        <p class="text-sm text-gray-500 mb-3"><%= item.excerpt %></p>
+        <% } %>
+        <a href="/services" class="inline-flex items-center text-sm font-medium hover:underline" style="color: <%= it.settings?.accentColor %>">
+          Подробнее
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <% }) %>
+    </div>
+    <div class="text-center mt-10">
+      <a href="/services" class="inline-flex items-center px-6 h-10 rounded-md border border-gray-300 hover:bg-gray-100 text-sm font-medium transition-colors">
+        Все услуги
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% /* ПОЧЕМУ МЫ * */ %>
+<% if (it.whyUs && it.whyUs.length > 0) { %>
+<section id="why-us" class="py-16 md:py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide"
+           style="background-color: <%= it.settings?.accentColor %>1a; color: <%= it.settings?.accentColor %>">
+        Почему мы
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-3" style="color: <%= it.settings?.primaryColor %>">
+        <%= it.settings?.whyUsSectionTitle || 'Почему выбирают нас' %>
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <% it.whyUs.forEach(function(item, idx) { %>
+      <div class="text-center space-y-3 p-4">
+        <div class="mx-auto h-16 w-16 rounded-full flex items-center justify-center" style="background-color: transparent">
+          <span class="text-3xl" style="color: <%= it.settings?.accentColor %>">⬡</span>
+        </div>
+        <div class="text-4xl font-bold opacity-30" style="color: <%= it.settings?.accentColor %>">
+          <%= String(idx + 1).padStart(2, '0') %>
+        </div>
+        <h3 class="text-lg font-semibold" style="color: <%= it.settings?.primaryColor %>">
+          <%= item.title %>
+        </h3>
+        <% if (item.description) { %>
+        <div class="text-sm text-gray-500 prose prose-sm max-w-none">
+          <%~ item.description %>
+        </div>
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% /* КЕЙСЫ * */ %>
+<% if (it.cases && it.cases.length > 0) { %>
+<section id="cases" class="py-16 md:py-24 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide"
+           style="background-color: <%= it.settings?.accentColor %>1a; color: <%= it.settings?.accentColor %>">
+        Наш опыт
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-3" style="color: <%= it.settings?.primaryColor %>">
+        <%= it.settings?.casesSectionTitle || 'Кейсы' %>
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% it.cases.slice(0, 6).forEach(function(item) { %>
+      <a href="/cases/<%= encodeURIComponent(item.slug) %>" class="group bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+        <% if (item.coverImage) { %>
+        <div class="aspect-[16/10] overflow-hidden">
+          <img src="<%= item.coverImage %>" alt="<%= item.title %>"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+               loading="lazy" decoding="async">
+        </div>
+        <% } else { %>
+        <div class="aspect-[16/10] flex items-center justify-center text-white"
+             style="background: linear-gradient(135deg, <%= it.settings?.primaryColor %>, <%= it.settings?.accentColor %>)">
+          <span class="text-4xl font-bold opacity-50"><%= (item.client || item.title).charAt(0).toUpperCase() %></span>
+        </div>
+        <% } %>
+        <div class="p-5 flex-1 flex flex-col">
+          <% if (item.client) { %>
+          <p class="text-xs text-gray-400 mb-1"><%= item.client %></p>
+          <% } %>
+          <h3 class="font-semibold mb-2 leading-tight" style="color: <%= it.settings?.primaryColor %>">
+            <%= item.title %>
+          </h3>
+          <% if (item.excerpt) { %>
+          <p class="text-sm text-gray-500 line-clamp-3 mb-3 flex-1"><%= item.excerpt %></p>
+          <% } %>
+          <div class="flex items-center justify-between gap-2 mt-auto">
+            <% if (item.results) { %>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
+                 style="background-color: <%= it.settings?.accentColor %>1a; color: <%= it.settings?.accentColor %>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <%= item.results %>
+            </div>
+            <% } else { %>
+            <span></span>
+            <% } %>
+            <span class="inline-flex items-center text-xs font-medium opacity-70 group-hover:opacity-100 transition-opacity"
+                  style="color: <%= it.settings?.accentColor %>">
+              Подробнее
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+    <div class="text-center mt-10">
+      <a href="/cases" class="inline-flex items-center px-6 h-10 rounded-md border border-gray-300 hover:bg-gray-100 text-sm font-medium transition-colors">
+        Все кейсы
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% /* FAQ * */ %>
+<% if (it.faq && it.faq.length > 0) { %>
+<section id="faq" class="py-16 md:py-24 bg-white">
+  <div class="container mx-auto px-4 max-w-4xl">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide"
+           style="background-color: <%= it.settings?.accentColor %>1a; color: <%= it.settings?.accentColor %>">
+        Вопросы и ответы
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-3" style="color: <%= it.settings?.primaryColor %>">
+        <%= it.settings?.faqSectionTitle || 'Частые вопросы' %>
+      </h2>
+    </div>
+    <div class="space-y-3">
+      <% it.faq.forEach(function(item, idx) { %>
+      <details class="border rounded-lg px-5 bg-white shadow-sm hover:shadow-md transition-shadow group">
+        <summary class="cursor-pointer py-4 font-medium text-left flex items-center justify-between gap-4 list-none">
+          <span><%= item.question %></span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="pb-4 text-sm text-gray-500 leading-relaxed prose prose-sm max-w-none">
+          <%~ item.answer %>
+        </div>
+      </details>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% /* CTA-БАННЕР с формой (HTMX hx-post) * */ %>
+<section id="cta" class="py-16 md:py-24">
+  <div class="container mx-auto px-4">
+    <div class="rounded-2xl overflow-hidden max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2">
+      <% /* Левая часть — текст с фоном * */ %>
+      <div class="p-8 md:p-12 text-white"
+           style="<%= it.settings?.ctaBackground ? 'background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(' + it.settings.ctaBackground + ') center/cover no-repeat' : 'background: linear-gradient(135deg, ' + (it.settings?.primaryColor || '#0f172a') + ' 0%, ' + (it.settings?.accentColor || '#10b981') + ' 100%)' %>">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+          <%= it.settings?.ctaSectionTitle || 'Готовы обсудить ваш проект?' %>
+        </h2>
+        <p class="text-white/90 leading-relaxed mb-6">
+          <%= it.settings?.ctaSectionText || 'Оставьте заявку — проведём бесплатный аудит.' %>
+        </p>
+        <ul class="space-y-2 text-sm text-white/85">
+          <% if (it.settings?.ctaBullet1) { %>
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <%= it.settings.ctaBullet1 %>
+          </li>
+          <% } %>
+          <% if (it.settings?.ctaBullet2) { %>
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <%= it.settings.ctaBullet2 %>
+          </li>
+          <% } %>
+          <% if (it.settings?.ctaBullet3) { %>
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <%= it.settings.ctaBullet3 %>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+
+      <% /* Правая часть — форма (HTMX: hx-post отправляет данные, ответ заменяет форму) * */ %>
+      <div class="bg-white p-8 md:p-10 flex flex-col justify-center">
+        <div id="cta-form-container">
+          <form hx-post="/api/leads/submit-html"
+                hx-target="#cta-form-container"
+                hx-swap="innerHTML"
+                class="space-y-3">
+            <input type="text" name="name" placeholder="Имя" required
+                   class="w-full h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required
+                   class="w-full h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="email" name="email" placeholder="Email" required
+                   class="w-full h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <textarea name="message" rows="3" placeholder="Опишите вашу задачу"
+                      class="w-full px-3 py-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <button type="submit"
+                    class="w-full h-10 rounded-md text-sm font-medium text-white transition-colors hover:opacity-90"
+                    style="background-color: <%= it.settings?.accentColor || '#10b981' %>">
+              <%= it.settings?.ctaButtonText || 'Оставить заявку' %>
+            </button>
+            <p class="text-xs text-gray-400 text-center">
+              Нажимая кнопку, вы соглашаетесь с <a href="/privacy" class="underline hover:text-gray-600">политикой конфиденциальности</a>.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<div id="login-form-container">
+  <form hx-post="/api/admin/login-html" hx-target="#login-form-container" hx-swap="innerHTML" class="space-y-4">
+    <% if (it.error) { %>
+    <div class="bg-red-50 border border-red-200 rounded-md p-3 text-sm text-red-600">
+      <%= it.error %>
+    </div>
+    <% } %>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+      <input type="tel" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required
+             class="w-full h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Пароль</label>
+      <input type="password" name="password" placeholder="••••••" required
+             class="w-full h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+    </div>
+    <button type="submit"
+            class="w-full h-10 rounded-md text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors">
+      Войти
+    </button>
+  </form>
+</div>

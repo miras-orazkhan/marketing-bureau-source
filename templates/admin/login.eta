@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — <%= it.settings?.siteName || 'Admin' %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@2.0.10" defer></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center px-4">
+
+  <div class="max-w-md w-full">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <div class="flex items-center gap-2 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-emerald-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h1 class="text-xl font-bold text-gray-900">Панель управления</h1>
+      </div>
+
+      <div id="login-form-container">
+        <form hx-post="/api/admin/login-html" hx-target="#login-form-container" hx-swap="innerHTML" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+            <input type="tel" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required
+                   class="w-full h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Пароль</label>
+            <input type="password" name="password" placeholder="••••••" required
+                   class="w-full h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          </div>
+          <button type="submit"
+                  class="w-full h-10 rounded-md text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors">
+            Войти
+          </button>
+        </form>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/" class="text-sm text-gray-400 hover:text-gray-600">← Вернуться на сайт</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

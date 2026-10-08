@@ -38,6 +38,8 @@ export type SiteSettingsPublic = {
   googleTagManager: string | null
   siteUrl: string | null
   footerText: string
+  aboutTitle: string | null
+  aboutDescription: string | null
   aboutText: string | null
   aboutContent: string | null
   // Секции главной
@@ -131,6 +133,8 @@ export async function getSiteSettings(): Promise<SiteSettingsPublic> {
     googleTagManager: row.googleTagManager,
     siteUrl: row.siteUrl,
     footerText: row.footerText || `© ${new Date().getFullYear()} ${siteName}. Все права защищены.`,
+    aboutTitle: row.aboutTitle,
+    aboutDescription: row.aboutDescription,
     aboutText: row.aboutText,
     aboutContent: row.aboutContent,
     // Секции главной
@@ -221,6 +225,8 @@ export type SiteSettingsUpdate = Partial<{
   googleTagManager: string | null
   siteUrl: string | null
   footerText: string | null
+  aboutTitle: string | null
+  aboutDescription: string | null
   aboutText: string | null
   aboutContent: string | null
   heroTitle: string | null

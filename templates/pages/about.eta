@@ -1,0 +1,72 @@
+<% /* Страница О нас */ %>
+<div class="container mx-auto px-4 py-8 max-w-3xl">
+  <nav class="text-sm mb-6 text-gray-400">
+    <a href="/" class="hover:text-gray-600">Главная</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-900 font-medium">О нас</span>
+  </nav>
+
+  <h1 class="text-3xl md:text-4xl font-bold mb-6" style="color: <%= it.settings?.primaryColor %>">
+    О нас
+  </h1>
+
+  <% if (it.settings?.aboutContent) { %>
+  <div class="prose prose-lg max-w-none mb-8 text-gray-600 leading-relaxed">
+    <%~ it.settings.aboutContent %>
+  </div>
+  <% } else if (it.settings?.aboutText) { %>
+  <p class="text-gray-500 leading-relaxed mb-8 text-lg"><%= it.settings.aboutText %></p>
+  <% } %>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <% if (it.settings?.email) { %>
+    <div class="border rounded-lg p-4 bg-white shadow-sm">
+      <p class="text-sm text-gray-400 mb-1">Email</p>
+      <p class="font-medium"><a href="mailto:<%= it.settings.email %>" class="hover:underline"><%= it.settings.email %></a></p>
+    </div>
+    <% } %>
+    <% if (it.settings?.phone) { %>
+    <div class="border rounded-lg p-4 bg-white shadow-sm">
+      <p class="text-sm text-gray-400 mb-1">Телефон</p>
+      <p class="font-medium"><a href="tel:<%= it.settings.phone %>" class="hover:underline"><%= it.settings.phone %></a></p>
+    </div>
+    <% } %>
+    <% if (it.settings?.address) { %>
+    <div class="border rounded-lg p-4 bg-white shadow-sm sm:col-span-2">
+      <p class="text-sm text-gray-400 mb-1">Адрес</p>
+      <p class="font-medium"><%= it.settings.address %></p>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<section class="py-16">
+  <div class="container mx-auto px-4 max-w-5xl">
+    <div class="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+      <div class="p-8 md:p-12 text-white"
+           style="background: linear-gradient(135deg, <%= it.settings?.primaryColor || '#0f172a' %> 0%, <%= it.settings?.accentColor || '#10b981' %> 100%)">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Хотите обсудить ваш проект?</h2>
+        <p class="text-white/90 mb-6">Оставьте заявку — проведём бесплатную консультацию.</p>
+        <a href="/#cta" class="inline-flex items-center px-6 h-10 rounded-md bg-white text-gray-900 hover:bg-white/90 text-sm font-medium">
+          Оставить заявку
+        </a>
+      </div>
+      <div class="bg-white p-8 md:p-12 flex items-center">
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: <%= it.settings?.accentColor %>"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="text-sm">Бесплатная консультация — 30 минут</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: <%= it.settings?.accentColor %>"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="text-sm">Ответим в течение рабочего дня</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: <%= it.settings?.accentColor %>"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="text-sm">Без навязчивых звонков и спама</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

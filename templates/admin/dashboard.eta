@@ -1,0 +1,55 @@
+
+<div class="space-y-6">
+  <h1 class="text-2xl font-bold">Дашборд</h1>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <a href="/admin/cases" class="bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
+      <div class="text-3xl font-bold text-emerald-500"><%= it.stats?.cases || 0 %></div>
+      <div class="text-sm text-gray-400 mt-1">Кейсы</div>
+    </a>
+    <a href="/admin/services" class="bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
+      <div class="text-3xl font-bold text-emerald-500"><%= it.stats?.services || 0 %></div>
+      <div class="text-sm text-gray-400 mt-1">Услуги</div>
+    </a>
+    <a href="/admin/articles" class="bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
+      <div class="text-3xl font-bold text-emerald-500"><%= it.stats?.articles || 0 %></div>
+      <div class="text-sm text-gray-400 mt-1">Статьи</div>
+    </a>
+    <a href="/admin/leads" class="bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
+      <div class="text-3xl font-bold text-emerald-500"><%= it.stats?.leads || 0 %></div>
+      <div class="text-sm text-gray-400 mt-1">Заявки</div>
+    </a>
+  </div>
+
+  <div class="bg-white border rounded-xl p-6">
+    <h2 class="text-lg font-semibold mb-4">Быстрые действия</h2>
+    <div class="flex flex-wrap gap-3">
+      <a href="/admin/cases" class="px-4 h-9 inline-flex items-center rounded-md border border-gray-300 hover:bg-gray-50 text-sm transition-colors">Кейсы</a>
+      <a href="/admin/services" class="px-4 h-9 inline-flex items-center rounded-md border border-gray-300 hover:bg-gray-50 text-sm transition-colors">Услуги</a>
+      <a href="/admin/faq" class="px-4 h-9 inline-flex items-center rounded-md border border-gray-300 hover:bg-gray-50 text-sm transition-colors">FAQ</a>
+      <a href="/admin/articles" class="px-4 h-9 inline-flex items-center rounded-md border border-gray-300 hover:bg-gray-50 text-sm transition-colors">Статьи</a>
+      <a href="/admin/leads" class="px-4 h-9 inline-flex items-center rounded-md border border-gray-300 hover:bg-gray-50 text-sm transition-colors">Заявки</a>
+      <a href="/admin/socials" class="px-4 h-9 inline-flex items-center rounded-md border border-gray-300 hover:bg-gray-50 text-sm transition-colors">Соцсети</a>
+      <a href="/admin/settings" class="px-4 h-9 inline-flex items-center rounded-md border border-gray-300 hover:bg-gray-50 text-sm transition-colors">Настройки</a>
+    </div>
+  </div>
+
+  <div class="bg-white border rounded-xl p-6">
+    <h2 class="text-lg font-semibold mb-2">Последние заявки</h2>
+    <% if (it.recentLeads && it.recentLeads.length > 0) { %>
+    <div class="space-y-2">
+      <% it.recentLeads.forEach(function(lead) { %>
+      <div class="flex items-center justify-between gap-4 py-2 border-b last:border-b-0">
+        <div>
+          <p class="font-medium text-sm"><%= lead.name %></p>
+          <p class="text-xs text-gray-400"><%= lead.phone %><% if (lead.email) { %> · <%= lead.email %><% } %></p>
+        </div>
+        <span class="text-xs text-gray-400"><%= new Date(lead.createdAt).toLocaleDateString('ru-RU') %></span>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <p class="text-sm text-gray-400">Заявок пока нет.</p>
+    <% } %>
+  </div>
+</div>

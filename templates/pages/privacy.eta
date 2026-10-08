@@ -1,0 +1,22 @@
+<% /* Страница Политика конфиденциальности */ %>
+<div class="container mx-auto px-4 py-8 max-w-3xl">
+  <nav class="text-sm mb-6 text-gray-400">
+    <a href="/" class="hover:text-gray-600">Главная</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-900 font-medium">Политика конфиденциальности</span>
+  </nav>
+
+  <h1 class="text-3xl md:text-4xl font-bold mb-6" style="color: <%= it.settings?.primaryColor %>">
+    <%= it.privacyContent?.title || 'Политика конфиденциальности' %>
+  </h1>
+
+  <% if (it.privacyContent?.intro) { %>
+  <p class="text-gray-500 leading-relaxed mb-6 text-lg"><%= it.privacyContent.intro %></p>
+  <% } %>
+
+  <% if (it.privacyContent?.content) { %>
+  <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed">
+    <%~ it.privacyContent.content %>
+  </div>
+  <% } %>
+</div>

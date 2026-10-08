@@ -1,0 +1,45 @@
+<% /* Header — навигация сайта */ %>
+<header class="sticky top-0 z-40 w-full border-b bg-white/95 backdrop-blur">
+  <div class="container mx-auto flex h-16 items-center justify-between px-4">
+
+    <% /* Логотип * */ %>
+    <a href="/" class="flex items-center gap-2 shrink-0 hover:opacity-80 transition-opacity">
+      <% if (it.settings?.logoUrl) { %>
+        <img src="<%= it.settings.logoUrl %>?v=<%= new Date(it.settings.updatedAt).getTime() %>"
+             alt="<%= it.settings?.siteName || 'Logo' %>"
+             width="180" height="40"
+             class="h-10 w-auto max-w-[180px] object-contain"
+             loading="eager" decoding="async" fetchPriority="high">
+      <% } else { %>
+        <span class="text-xl font-bold tracking-tight" style="color: <%= it.settings?.primaryColor || '#0f172a' %>">
+          <%= it.settings?.logoText || it.settings?.siteName || 'Marketing Bureau' %>
+        </span>
+      <% } %>
+    </a>
+
+    <% /* Десктоп-навигация * */ %>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="/" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors">Главная</a>
+      <a href="/services" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors">Услуги</a>
+      <a href="/cases" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors">Кейсы</a>
+      <a href="/about" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors">О нас</a>
+      <a href="/blog" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors">Блог</a>
+      <a href="/faq" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors">FAQ</a>
+    </nav>
+
+    <% /* Мобильное меню (через <details> — нативный accordion без JS) * */ %>
+    <details class="md:hidden relative">
+      <summary class="list-none cursor-pointer p-2 select-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </summary>
+      <nav class="absolute right-0 top-12 bg-white border rounded-lg shadow-lg p-2 flex flex-col gap-1 min-w-[200px]">
+        <a href="/" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md">Главная</a>
+        <a href="/services" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md">Услуги</a>
+        <a href="/cases" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md">Кейсы</a>
+        <a href="/about" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md">О нас</a>
+        <a href="/blog" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md">Блог</a>
+        <a href="/faq" class="px-3 py-2 text-sm font-medium hover:bg-gray-100 rounded-md">FAQ</a>
+      </nav>
+    </details>
+  </div>
+</header>
