@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { render, renderPage } from '@/lib/template-engine'
+import { render, renderPage, iconSvg } from '@/lib/template-engine'
 import { getSiteSettings } from '@/lib/settings'
 import {
   getPublishedServices,
@@ -36,7 +36,7 @@ async function loadContext(): Promise<PageContext> {
   ])
   const header = await render('partials/header', { settings })
   const footer = await render('partials/footer', { settings, socialLinks })
-  return { settings, socialLinks, header, footer }
+  return { settings, socialLinks, header, footer, iconSvg }
 }
 
 /**

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { render, renderPage } from '@/lib/template-engine'
+import { render, renderPage, iconSvg } from '@/lib/template-engine'
 import { getSiteSettings } from '@/lib/settings'
 import {
   getPublishedServices,
@@ -23,11 +23,11 @@ export async function GET() {
     getPublishedSocialLinks(),
   ])
 
-  const header = await render('partials/header', { settings })
-  const footer = await render('partials/footer', { settings, socialLinks })
+  const header = await render('partials/header', { settings, iconSvg })
+  const footer = await render('partials/footer', { settings, socialLinks, iconSvg })
 
   const html = await renderPage('pages/home', {
-    settings, expertise, services, whyUs, cases, faq, socialLinks, header, footer,
+    settings, expertise, services, whyUs, cases, faq, socialLinks, header, footer, iconSvg,
   })
 
   return new NextResponse(html, {

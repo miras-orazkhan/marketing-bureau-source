@@ -67,7 +67,7 @@
             <% if (item.iconImage) { %>
               <img src="<%= item.iconImage %>" alt="<%= item.title %>" class="h-12 w-12 object-contain" loading="lazy" decoding="async">
             <% } else { %>
-              <span class="text-2xl" style="color: <%= it.settings?.accentColor %>">⬡</span>
+              <%~ it.iconSvg(item.icon, 'h-7 w-7', it.settings?.accentColor) %>
             <% } %>
           </div>
           <div class="min-w-0 flex-1 text-center sm:text-left">
@@ -109,7 +109,7 @@
           <% if (item.iconImage) { %>
             <img src="<%= item.iconImage %>" alt="<%= item.title %>" class="h-12 w-12 object-contain rounded-lg" loading="lazy" decoding="async">
           <% } else { %>
-            <span class="text-2xl" style="color: <%= it.settings?.accentColor %>">⬡</span>
+            <%~ it.iconSvg(item.icon, 'h-7 w-7', it.settings?.accentColor) %>
           <% } %>
         </div>
         <h3 class="font-semibold text-lg mb-2" style="color: <%= it.settings?.primaryColor %>">
@@ -152,7 +152,7 @@
       <% it.whyUs.forEach(function(item, idx) { %>
       <div class="text-center space-y-3 p-4">
         <div class="mx-auto h-16 w-16 rounded-full flex items-center justify-center" style="background-color: transparent">
-          <span class="text-3xl" style="color: <%= it.settings?.accentColor %>">⬡</span>
+          <%~ it.iconSvg(item.icon, 'h-8 w-8', it.settings?.accentColor) %>
         </div>
         <div class="text-4xl font-bold opacity-30" style="color: <%= it.settings?.accentColor %>">
           <%= String(idx + 1).padStart(2, '0') %>
