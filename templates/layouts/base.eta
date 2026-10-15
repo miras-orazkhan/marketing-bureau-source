@@ -13,13 +13,51 @@
   <% if (it.settings?.heroBackground) { %>
   <link rel="preload" as="image" href="<%= it.settings.heroBackground %>" fetchPriority="high">
   <% } %>
-  <link rel="stylesheet" href="/styles.css">
   <% if (it.settings?.googleTagManager) { %>
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <% } %>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <script src="https://unpkg.com/htmx.org@2.0.10" defer></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif}
+    body{background:#fff;color:#0f172a;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{width:100%;max-width:80rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
+    .absolute{position:absolute}.relative{position:relative}
+    .inset-0{top:0;right:0;bottom:0;left:0}
+    .flex{display:flex}.grid{display:grid}.block{display:block}.hidden{display:none}
+    .flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}
+    .flex-1{flex:1 1 0%}.flex-wrap{flex-wrap:wrap}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}
+    .text-center{text-align:center}.text-left{text-align:left}
+    .text-white{color:#fff}.text-gray-900{color:#0f172a}.text-gray-500{color:#64748b}.text-gray-400{color:#94a3b8}
+    .font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}
+    .text-sm{font-size:.875rem}.text-xs{font-size:.75rem}.text-3xl{font-size:1.875rem}.text-4xl{font-size:2.25rem}
+    .leading-tight{line-height:1.25}.leading-relaxed{line-height:1.625}
+    .mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}
+    .mt-3{margin-top:.75rem}.mt-10{margin-top:2.5rem}
+    .py-24{padding-top:6rem;padding-bottom:6rem}.py-16{padding-top:4rem;padding-bottom:4rem}
+    .px-4{padding-left:1rem;padding-right:1rem}.p-4{padding:1rem}.p-8{padding:2rem}
+    .rounded-lg{border-radius:.5rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}
+    .border{border-width:1px;border-color:#e2e8f0}.border-b{border-bottom-width:1px}
+    .bg-white{background:#fff}.bg-gray-50{background:#f8fafc}.bg-gray-100{background:#f1f5f9}
+    .object-cover{object-fit:cover}.object-contain{object-fit:contain}
+    .w-full{width:100%}.h-full{height:100%}.h-10{height:2.5rem}.h-16{height:4rem}.h-9{height:2.25rem}
+    .max-w-3xl{max-width:48rem}.max-w-5xl{max-width:64rem}.max-w-2xl{max-width:42rem}
+    .overflow-hidden{overflow:hidden}
+    .sticky{position:sticky}.top-0{top:0}.z-40{z-index:40}
+    .shrink-0{flex-shrink:0}.min-h-screen{min-height:100vh}
+    .transition-colors{transition:color .15s}.hover\:bg-gray-100:hover{background:#f1f5f9}
+    .hover\:text-gray-900:hover{color:#0f172a}.hover\:text-gray-600:hover{color:#475569}
+    .hover\:underline:hover{text-decoration:underline}
+    .md\:flex{display:none}@media(min-width:768px){.md\:flex{display:flex}.md\:hidden{display:none}.md\:py-36{padding-top:9rem;padding-bottom:9rem}.md\:text-6xl{font-size:3.75rem}.md\:text-xl{font-size:1.25rem}}
+    .backdrop-blur{backdrop-filter:blur(4px)}
+  </style>
+  <link rel="stylesheet" href="/styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/styles.css"></noscript>
 </head>
-<body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
+<body>
   <% if (it.settings?.googleTagManager) { %>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<%= it.settings.googleTagManager %>" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <% } %>

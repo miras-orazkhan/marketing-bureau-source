@@ -4,7 +4,7 @@
 <section id="hero" class="relative overflow-hidden isolate">
   <div class="absolute inset-0 -z-10">
     <% if (it.settings?.heroBackground) { %>
-    <img src="<%= it.settings.heroBackground %>" alt=""
+    <img src="<%= it.settings.heroBackground %>" alt="" width="1920" height="1219"
          class="absolute inset-0 w-full h-full object-cover"
          loading="eager" decoding="async" fetchPriority="high">
     <div class="absolute inset-0" style="background: rgba(0,0,0,0.5)"></div>
